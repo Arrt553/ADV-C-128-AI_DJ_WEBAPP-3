@@ -6,18 +6,21 @@ var rightWristY = 0;
 
 function preload(){
     song = loadSound("music.mp3");
-    
 }
 function setup(){
     var canvas = createCanvas(600,490);
     canvas.center();
-    var video = createCapture(VIDEO);
+    video = createCapture(VIDEO);
     video.hide();
 
     poseNet = ml5.poseNet(video,modelLoaded);
     poseNet.on("pose",gotPoses);
 
 }
+function draw(){
+    image(video,0,0,600,490);
+}
+
 function gotPoses(results){
     if(results.length > 0){
         console.log(results);
@@ -34,9 +37,8 @@ function gotPoses(results){
 function modelLoaded(){
     console.log("Model Loaded!");
 }
-function draw(){
-    image(video,0,0,600,490);
-}
+
+
 function play(){
     song.play();
     song.setVolume(1);
